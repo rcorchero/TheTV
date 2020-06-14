@@ -1,0 +1,67 @@
+apply plugin: 'com.android.library'
+apply plugin: 'kotlin-android'
+apply plugin: 'kotlin-android-extensions'
+apply plugin: 'kotlin-kapt'
+
+def commonDependencies = rootProject.ext.commonDependencies
+def dataDependencies = rootProject.ext.dataDependencies
+
+android {
+    compileSdkVersion rootProject.ext.compileSdkVersion
+    buildToolsVersion rootProject.ext.buildToolsVersion
+
+    defaultConfig {
+        minSdkVersion rootProject.ext.minSdkVersion
+        targetSdkVersion rootProject.ext.targetSdkVersion
+        versionCode rootProject.ext.versionCode
+        versionName rootProject.ext.versionName
+    }
+
+    buildTypes {
+        release {
+            minifyEnabled true
+            proguardFiles getDefaultProguardFile('proguard-android-optimize.txt'), 'proguard-rules.pro'
+        }
+
+        debug {
+            minifyEnabled false
+            debuggable true
+        }
+    }
+
+    compileOptions {
+        sourceCompatibility JavaVersion.VERSION_1_8
+        targetCompatibility JavaVersion.VERSION_1_8
+    }
+}
+
+dependencies {
+    implementation project(':domain')
+
+    implementation commonDependencies.kotlin
+
+    // Moshi
+    implementation dataDependencies.moshiKotlin
+    kapt dataDependencies.moshiCodegen
+
+    // Retrofit
+    implementation dataDependencies.retrofit
+
+    // SQLite
+    implementation dataDependencies.sqLite
+
+    // Testing
+    testImplementation presentationDependencies.junit
+    testImplementation presentationDependencies.mockK
+    testImplementation presentationDependencies.coroutinesTest
+}
+
+buildscript {
+    repositories {
+        mavenCentral()
+    }
+
+    dependencies {
+        classpath commonDependencies.kotlinGradle
+    }
+}

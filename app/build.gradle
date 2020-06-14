@@ -1,0 +1,85 @@
+apply plugin: 'com.android.application'
+apply plugin: 'kotlin-android'
+apply plugin: 'kotlin-android-extensions'
+apply plugin: 'kotlin-kapt'
+
+def commonDependencies = rootProject.ext.commonDependencies
+def appDependencies = rootProject.ext.appDependencies
+def dataDependencies = rootProject.ext.dataDependencies
+def presentationDependencies = rootProject.ext.presentationDependencies
+
+android {
+    compileSdkVersion rootProject.ext.compileSdkVersion
+    buildToolsVersion rootProject.ext.buildToolsVersion
+
+    defaultConfig {
+        applicationId "com.rcorchero.thetv"
+        minSdkVersion rootProject.ext.minSdkVersion
+        targetSdkVersion rootProject.ext.targetSdkVersion
+        versionCode rootProject.ext.versionCode
+        versionName rootProject.ext.versionName
+        testInstrumentationRunner "androidx.test.runner.AndroidJUnitRunner"
+    }
+
+    buildTypes {
+        release {
+            minifyEnabled true
+            shrinkResources true
+            proguardFiles getDefaultProguardFile('proguard-android-optimize.txt'), 'proguard-rules.pro'
+        }
+
+        debug {
+            applicationIdSuffix ".debug"
+            versionNameSuffix ".debug"
+            minifyEnabled false
+            debuggable true
+        }
+    }
+
+    compileOptions {
+        sourceCompatibility JavaVersion.VERSION_1_8
+        targetCompatibility JavaVersion.VERSION_1_8
+    }
+}
+
+dependencies {
+    implementation project(':data')
+    implementation project(':domain')
+    implementation project(':presentation')
+
+    implementation commonDependencies.kotlin
+
+    // DI - Common
+    implementation appDependencies.dagger
+    kapt appDependencies.daggerCompiler
+    implementation appDependencies.daggerAndroid
+    implementation appDependencies.daggerAndroidSupport
+    kapt appDependencies.daggerAndroidProcessor
+
+    // DI - Coroutines
+    implementation presentationDependencies.kotlinCoroutines
+    implementation presentationDependencies.kotlinCoroutinesAndroid
+
+    // DI - Retrofit
+    implementation dataDependencies.retrofit
+    implementation dataDependencies.retrofitMoshiConverter
+    implementation dataDependencies.okhttpLoggingInterceptor
+
+    // UI
+    implementation appDependencies.viewPager2
+    implementation appDependencies.material
+    implementation appDependencies.constraintLayout
+    implementation appDependencies.swipeRefreshLayout
+
+    // Image Loading
+    implementation appDependencies.glide
+    annotationProcessor appDependencies.glideCompiler
+    implementation appDependencies.lottie
+
+    // Unit Test
+    testImplementation 'junit:junit:4.12'
+    androidTestImplementation 'androidx.test.ext:junit:1.1.0'
+
+    // Integration Test
+    androidTestImplementation 'androidx.test.espresso:espresso-core:3.1.1'
+}

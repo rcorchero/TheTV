@@ -1,0 +1,43 @@
+<resources>
+
+    <style name="AppTheme" parent="Theme.MaterialComponents.NoActionBar">
+        <item name="colorPrimary">@color/green</item>
+        <item name="colorPrimaryDark">@color/black</item>
+        <item name="colorAccent">@color/yellow</item>
+
+        <item name="android:fontFamily">@font/raleway_regular</item>
+    </style>
+
+    <style name="Toolbar" parent="Widget.MaterialComponents.Toolbar">
+        <item name="android:fontFamily">@font/raleway_black</item>
+        <item name="android:textSize">@dimen/text_24</item>
+    </style>
+
+    <style name="TabLayout" parent="Widget.MaterialComponents.TabLayout">
+        <item name="android:textSize">16sp</item>
+        <item name="android:textStyle">bold</item>
+        <item name="android:textAllCaps">true</item>
+    </style>
+
+    <style name="TextView">
+        <item name="android:textSize">@dimen/text_16</item>
+    </style>
+
+    <style name="VoteAverageText" parent="TextView">
+        <item name="android:fontFamily">@font/raleway_bold</item>
+        <item name="android:background">@drawable/bg_rounded_grey</item>
+        <item name="android:layout_margin">@dimen/dimen_6</item>
+        <item name="android:elevation">@dimen/dimen_6</item>
+        <item name="android:padding">@dimen/dimen_6</item>
+        <item name="android:textColor">@color/white</item>
+    </style>
+
+    <style name="EmptyText">
+        <item name="android:textSize">@dimen/text_24</item>
+        <item name="android:fontFamily">@font/raleway_medium</item>
+        <item name="android:layout_marginTop">@dimen/dimen_32</item>
+        <item name="android:padding">@dimen/dimen_16</item>
+        <item name="android:gravity">center_horizontal</item>
+    </style>
+
+</resources>

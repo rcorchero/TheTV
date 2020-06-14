@@ -1,0 +1,10 @@
+<resources>
+    <string name="app_name">TheTV</string>
+
+    <string name="tab_airing_today">Emitido hoy</string>
+    <string name="tab_popular">Populares</string>
+    <string name="tab_top_rated">Mejor valorados</string>
+
+    <string name="error_network">Se ha producido un error del servidor</string>
+    <string name="error_empty_tv_shows_list">Vaya… No se ha encontrado ningún capítulo 😢</string>
+</resources>

@@ -1,0 +1,30 @@
+apply plugin: 'java'
+apply plugin: 'kotlin'
+
+def commonDependencies = rootProject.ext.commonDependencies
+def presentationDependencies = rootProject.ext.presentationDependencies
+
+dependencies {
+    implementation project(':domain')
+
+    implementation commonDependencies.kotlin
+
+    // Coroutines
+    implementation presentationDependencies.kotlinCoroutines
+    implementation presentationDependencies.kotlinCoroutinesAndroid
+
+    // Testing
+    testImplementation presentationDependencies.junit
+    testImplementation presentationDependencies.mockK
+    testImplementation presentationDependencies.coroutinesTest
+}
+
+buildscript {
+    repositories {
+        mavenCentral()
+    }
+
+    dependencies {
+        classpath commonDependencies.kotlinGradle
+    }
+}

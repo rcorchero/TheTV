@@ -1,0 +1,84 @@
+allprojects {
+    repositories {
+        google()
+        jcenter()
+        mavenCentral()
+    }
+}
+
+ext {
+    // Project configuration
+    versionCode = 1
+    versionName = '1.0'
+
+    minSdkVersion = 23
+    targetSdkVersion = 29
+    compileSdkVersion = 29
+    buildToolsVersion = '29.0.3'
+
+    // Dependencies
+    javaxInjectVersion = '1'
+
+    moshiVersion = '1.9.2'
+    retrofitVersion = '2.8.1'
+    okhttpLoggingInterceptorVersion = '4.5.0'
+    sqLiteVersion = '2.1.0'
+
+    kotlinCoroutinesVersion = '1.3.4'
+    daggerVersion = '2.27'
+
+    viewPager2Version = '1.0.0'
+    materialVersion = '1.1.0'
+    constraintLayoutVersion = '1.1.3'
+    swipeRefreshLayoutVersion = '1.0.0'
+
+    glideVersion = '4.11.0'
+    lottieVersion = '3.4.0'
+
+    junitVersion = '4.13'
+    mockKVersion = '1.10.0'
+    coroutinesTestVersion = '1.3.7'
+
+    commonDependencies = [
+            kotlin      : "org.jetbrains.kotlin:kotlin-stdlib:$kotlinVersion",
+            kotlinGradle: "org.jetbrains.kotlin:kotlin-gradle-plugin:$kotlinVersion",
+            javaxInject : "javax.inject:javax.inject:$javaxInjectVersion"
+    ]
+
+    dataDependencies = [
+            moshiKotlin             : "com.squareup.moshi:moshi-kotlin:$moshiVersion",
+            moshiCodegen            : "com.squareup.moshi:moshi-kotlin-codegen:$moshiVersion",
+
+            retrofit                : "com.squareup.retrofit2:retrofit:$retrofitVersion",
+            retrofitMoshiConverter  : "com.squareup.retrofit2:converter-moshi:$retrofitVersion",
+            okhttpLoggingInterceptor: "com.squareup.okhttp3:logging-interceptor:$okhttpLoggingInterceptorVersion",
+
+            sqLite                  : "androidx.sqlite:sqlite-ktx:$sqLiteVersion"
+    ]
+
+    presentationDependencies = [
+            kotlinCoroutines       : "org.jetbrains.kotlinx:kotlinx-coroutines-core:$kotlinCoroutinesVersion",
+            kotlinCoroutinesAndroid: "org.jetbrains.kotlinx:kotlinx-coroutines-android:$kotlinCoroutinesVersion",
+
+            junit                  : "junit:junit:$junitVersion",
+            mockK                  : "io.mockk:mockk:$mockKVersion",
+            coroutinesTest         : "org.jetbrains.kotlinx:kotlinx-coroutines-test:$coroutinesTestVersion",
+    ]
+
+    appDependencies = [
+            dagger                : "com.google.dagger:dagger:$daggerVersion",
+            daggerCompiler        : "com.google.dagger:dagger-compiler:$daggerVersion",
+            daggerAndroid         : "com.google.dagger:dagger-android:$daggerVersion",
+            daggerAndroidSupport  : "com.google.dagger:dagger-android-support:$daggerVersion",
+            daggerAndroidProcessor: "com.google.dagger:dagger-android-processor:$daggerVersion",
+
+            viewPager2            : "androidx.viewpager2:viewpager2:$viewPager2Version",
+            material              : "com.google.android.material:material:$materialVersion",
+            constraintLayout      : "androidx.constraintlayout:constraintlayout:$constraintLayoutVersion",
+            swipeRefreshLayout    : "androidx.swiperefreshlayout:swiperefreshlayout:$swipeRefreshLayoutVersion",
+
+            glide                 : "com.github.bumptech.glide:glide:$glideVersion",
+            glideCompiler         : "com.github.bumptech.glide:compiler:$glideVersion",
+            lottie                : "com.airbnb.android:lottie:$lottieVersion"
+    ]
+}
