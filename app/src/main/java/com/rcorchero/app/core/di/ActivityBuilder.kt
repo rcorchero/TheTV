@@ -1,6 +1,6 @@
 package com.rcorchero.app.core.di
 
-import com.rcorchero.app.features.TvShowsActivity
+import com.rcorchero.app.features.TVShowsActivity
 import dagger.Module
 import dagger.android.ContributesAndroidInjector
 
@@ -9,5 +9,5 @@ abstract class ActivityBuilder {
 
     @ContributesAndroidInjector
     @PerActivity
-    internal abstract fun bindTvShowsActivity(): TvShowsActivity
+    internal abstract fun bindTVShowsActivity(): TVShowsActivity
 }

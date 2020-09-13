@@ -6,7 +6,7 @@ import com.google.android.material.tabs.TabLayoutMediator
 import com.rcorchero.app.R
 import kotlinx.android.synthetic.main.activity_tv_shows.*
 
-class TvShowsActivity : AppCompatActivity(R.layout.activity_tv_shows) {
+class TVShowsActivity : AppCompatActivity(R.layout.activity_tv_shows) {
 
     companion object TabPosition {
         const val AIRING_TODAY = 0
@@ -22,7 +22,7 @@ class TvShowsActivity : AppCompatActivity(R.layout.activity_tv_shows) {
     }
 
     private fun setAdapter() {
-        viewPager.adapter = TvShowsAdapter(this)
+        viewPager.adapter = TVShowsAdapter(this)
     }
 
     private fun setTabLayout() {

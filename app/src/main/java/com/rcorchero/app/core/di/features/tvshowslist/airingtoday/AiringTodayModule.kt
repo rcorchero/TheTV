@@ -1,10 +1,10 @@
-package com.rcorchero.app.core.di.features.airingtoday
+package com.rcorchero.app.core.di.features.tvshowslist.airingtoday
 
 import com.rcorchero.domain.usecase.GetAiringTodayTVShowsUseCase
 import com.rcorchero.presentation.asynchrony.AsynchronyManager
-import com.rcorchero.presentation.features.airingtoday.AiringTodayPresenter
+import com.rcorchero.presentation.features.tvshowslist.airingtoday.AiringTodayPresenter
 import com.rcorchero.app.core.di.asynchrony.AsynchronyModule
-import com.rcorchero.app.features.airingtoday.AiringTodayFragment
+import com.rcorchero.app.features.tvshowslist.airingtoday.AiringTodayFragment
 import dagger.Module
 import dagger.Provides
 
@@ -18,7 +18,8 @@ class AiringTodayModule {
         getAiringTodayTVShowsUseCase: GetAiringTodayTVShowsUseCase
     ): AiringTodayPresenter =
         AiringTodayPresenter(
-            airingTodayView = airingTodayFragment,
+            view = airingTodayFragment,
             asynchronyManager = asynchronyManager,
-            getAiringTodayTVShowsUseCase = getAiringTodayTVShowsUseCase)
+            getAiringTodayTVShowsUseCase = getAiringTodayTVShowsUseCase
+        )
 }

@@ -6,5 +6,9 @@ import com.rcorchero.domain.functional.Either
 
 interface TVShowsRemoteDataSource {
 
-    fun getAiringTodayTvShows(): Either<Failure, List<TVShowEntity>>
+    fun getAiringTodayTVShows(): Either<Failure, List<TVShowEntity>>
+
+    fun getPopularTVShows(): Either<Failure, List<TVShowEntity>>
+
+    fun getTopRatedTVShows(): Either<Failure, List<TVShowEntity>>
 }

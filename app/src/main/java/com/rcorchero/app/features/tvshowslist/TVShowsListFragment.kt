@@ -1,4 +1,4 @@
-package com.rcorchero.app.features.airingtoday
+package com.rcorchero.app.features.tvshowslist
 
 import android.os.Bundle
 import android.view.View
@@ -8,37 +8,30 @@ import com.google.android.material.snackbar.Snackbar
 import com.rcorchero.app.R
 import com.rcorchero.app.core.extensions.gone
 import com.rcorchero.app.core.extensions.visible
-import com.rcorchero.presentation.features.airingtoday.AiringTodayPresenter
-import com.rcorchero.presentation.features.airingtoday.AiringTodayView
+import com.rcorchero.presentation.features.tvshowslist.TVShowsListView
 import com.rcorchero.presentation.model.TVShowView
 import dagger.android.support.DaggerFragment
-import kotlinx.android.synthetic.main.fragment_airing_today.*
+import kotlinx.android.synthetic.main.fragment_tv_shows_list.*
 import javax.inject.Inject
 
-class AiringTodayFragment : DaggerFragment(R.layout.fragment_airing_today), AiringTodayView {
+abstract class TVShowsListFragment : DaggerFragment(R.layout.fragment_tv_shows_list),
+    TVShowsListView {
 
     @Inject
-    lateinit var presenter: AiringTodayPresenter
+    lateinit var tvShowsListAdapter: TVShowsListAdapter
 
-    @Inject
-    lateinit var airingTodayAdapter: AiringTodayAdapter
+    abstract fun onViewRefreshed()
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
 
         setupList()
         setupSwipeToRefresh()
-        loadAiringTodayTvShows()
-    }
-
-    override fun onDestroy() {
-        super.onDestroy()
-        presenter.cancel()
     }
 
     private fun setupList() = tvShowsList.apply {
         layoutManager = GridLayoutManager(context, 3)
-        adapter = airingTodayAdapter
+        adapter = tvShowsListAdapter
         layoutAnimation =
             AnimationUtils.loadLayoutAnimation(context, R.anim.grid_layout_animation_from_bottom)
     }
@@ -47,12 +40,9 @@ class AiringTodayFragment : DaggerFragment(R.layout.fragment_airing_today), Airi
         setColorSchemeResources(R.color.green)
         setProgressBackgroundColorSchemeResource(R.color.black)
         setOnRefreshListener {
-            loadAiringTodayTvShows()
+            onViewRefreshed()
         }
     }
-
-    private fun loadAiringTodayTvShows() =
-        presenter.getAiringToday()
 
     override fun showLoading() {
         viewEmpty.gone()
@@ -70,10 +60,10 @@ class AiringTodayFragment : DaggerFragment(R.layout.fragment_airing_today), Airi
             viewLoader.gone()
         }
 
-    override fun renderTvShows(tvShows: List<TVShowView>) {
+    override fun renderTVShows(tvShows: List<TVShowView>) {
         tvShowsList.visible()
 
-        airingTodayAdapter.collection = tvShows
+        tvShowsListAdapter.collection = tvShows
         tvShowsList.scheduleLayoutAnimation()
     }
 

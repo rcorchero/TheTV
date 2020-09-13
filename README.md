@@ -8,7 +8,7 @@ TheTV
 Introduction
 ------------
 
-This project corresponds to the series of post [TheTV](https://rcorchero.com/) treated in my blog.
+This project corresponds to the series of post [TheTV](https://rcorchero.com/tags/#TheTV) treated in my blog.
 
 
 Attributions

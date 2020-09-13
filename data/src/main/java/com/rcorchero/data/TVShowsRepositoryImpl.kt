@@ -3,6 +3,7 @@ package com.rcorchero.data
 import com.rcorchero.data.entities.TVShowEntity
 import com.rcorchero.data.entities.toDomainModel
 import com.rcorchero.data.source.local.TVShowsLocalDataSource
+import com.rcorchero.data.source.local.TVShowsLocalDataSource.TVShowsType
 import com.rcorchero.data.source.remote.TVShowsRemoteDataSource
 import com.rcorchero.domain.exception.Failure
 import com.rcorchero.domain.functional.Either
@@ -18,20 +19,48 @@ class TVShowsRepositoryImpl(
 
     override suspend fun getAiringToday(): Either<Failure, List<TVShow>> =
         if (isOnline) {
-            remoteDataSource.getAiringTodayTvShows().map {
-                saveData(it)
+            remoteDataSource.getAiringTodayTVShows().map {
+                saveData(TVShowsType.AIRING_TODAY, it)
                 it.toDomainModel()
             }
         } else {
             Either.Right(
-                localDataSource.getAiringTodayTvShows().map {
+                localDataSource.getTVShows(TVShowsType.AIRING_TODAY).map {
                     it.toDomainModel()
                 }
             )
         }
 
-    private fun saveData(movieEntityList: List<TVShowEntity>) {
-        localDataSource.deleteAiringTodayTvShows()
-        localDataSource.saveAiringTodayTvShows(movieEntityList)
+    override suspend fun getPopular(): Either<Failure, List<TVShow>> =
+        if (isOnline) {
+            remoteDataSource.getPopularTVShows().map {
+                saveData(TVShowsType.POPULAR, it)
+                it.toDomainModel()
+            }
+        } else {
+            Either.Right(
+                localDataSource.getTVShows(TVShowsType.POPULAR).map {
+                    it.toDomainModel()
+                }
+            )
+        }
+
+    override suspend fun getTopRated(): Either<Failure, List<TVShow>> =
+        if (isOnline) {
+            remoteDataSource.getTopRatedTVShows().map {
+                saveData(TVShowsType.TOP_RATED, it)
+                it.toDomainModel()
+            }
+        } else {
+            Either.Right(
+                localDataSource.getTVShows(TVShowsType.TOP_RATED).map {
+                    it.toDomainModel()
+                }
+            )
+        }
+
+    private fun saveData(type: TVShowsType, movieEntityList: List<TVShowEntity>) {
+        localDataSource.deleteTVShows(type)
+        localDataSource.saveTVShows(type, movieEntityList)
     }
 }

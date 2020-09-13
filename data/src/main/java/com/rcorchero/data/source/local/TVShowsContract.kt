@@ -6,7 +6,10 @@ object TVShowsContract {
 
     object TVShowEntry: BaseColumns {
 
-        const val TABLE_NAME = "tvShows"
+        const val TABLE_NAME_AIRING_TODAY = "airingToday"
+        const val TABLE_NAME_POPULAR = "popular"
+        const val TABLE_NAME_TOP_RATED = "topRated"
+
         const val COLUMN_ID = "id"
         const val COLUMN_NAME = "name"
         const val COLUMN_ORIGINAL_NAME = "originalName"

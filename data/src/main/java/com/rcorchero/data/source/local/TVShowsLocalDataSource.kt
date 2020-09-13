@@ -4,7 +4,11 @@ import com.rcorchero.data.entities.TVShowEntity
 
 interface TVShowsLocalDataSource {
 
-    fun getAiringTodayTvShows(): List<TVShowEntity>
-    fun saveAiringTodayTvShows(tvShowsList: List<TVShowEntity>)
-    fun deleteAiringTodayTvShows()
+    enum class TVShowsType {
+        AIRING_TODAY, POPULAR, TOP_RATED
+    }
+
+    fun getTVShows(type: TVShowsType): List<TVShowEntity>
+    fun saveTVShows(type: TVShowsType, tvShowsList: List<TVShowEntity>)
+    fun deleteTVShows(type: TVShowsType)
 }

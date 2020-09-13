@@ -1,25 +1,26 @@
-package com.rcorchero.presentation.features.airingtoday
+package com.rcorchero.presentation.features.tvshowslist.toprated
 
 import com.rcorchero.domain.model.TVShow
-import com.rcorchero.domain.usecase.GetAiringTodayTVShowsUseCase
+import com.rcorchero.domain.usecase.GetTopRatedTVShowsUseCase
 import com.rcorchero.presentation.asynchrony.AsynchronyManager
+import com.rcorchero.presentation.features.tvshowslist.TVShowsListView
 import com.rcorchero.presentation.model.toViewModel
 
-class AiringTodayPresenter(
-    airingTodayView: AiringTodayView,
+class TopRatedPresenter(
+    view: TVShowsListView,
     asynchronyManager: AsynchronyManager,
-    private val getAiringTodayTVShowsUseCase: GetAiringTodayTVShowsUseCase
+    private val getTopRatedTVShowsUseCase: GetTopRatedTVShowsUseCase
 ) :
-    AiringTodayView by airingTodayView,
+    TVShowsListView by view,
     AsynchronyManager by asynchronyManager {
 
     private var currentShowsList = listOf<TVShow>()
 
-    fun getAiringToday() {
+    fun getTopRated() {
         showLoading()
 
         launch(
-            function = { getAiringTodayTVShowsUseCase() },
+            function = { getTopRatedTVShowsUseCase() },
             success = { showsList ->
                 currentShowsList = showsList
 
@@ -28,7 +29,7 @@ class AiringTodayPresenter(
                 if (showsList.isEmpty()) {
                     showEmptyView()
                 } else {
-                    renderTvShows(showsList.map { it.toViewModel() })
+                    renderTVShows(showsList.map { it.toViewModel() })
                 }
             },
             error = {

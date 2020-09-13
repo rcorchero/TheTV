@@ -1,4 +1,4 @@
-package com.rcorchero.presentation.features.airingtoday
+package com.rcorchero.presentation.features.tvshowslist.airingtoday
 
 import com.rcorchero.domain.exception.Failure
 import com.rcorchero.domain.functional.Either
@@ -6,6 +6,7 @@ import com.rcorchero.domain.model.TVShow
 import com.rcorchero.domain.usecase.GetAiringTodayTVShowsUseCase
 import com.rcorchero.presentation.asynchrony.AsynchronyManager
 import com.rcorchero.presentation.asynchrony.AsynchronyManagerImpl
+import com.rcorchero.presentation.features.tvshowslist.TVShowsListView
 import io.mockk.MockKAnnotations
 import io.mockk.coEvery
 import io.mockk.coVerify
@@ -21,7 +22,7 @@ class AiringTodayPresenterTest {
     private lateinit var sut: AiringTodayPresenter
 
     @MockK(relaxUnitFun = true)
-    private lateinit var view: AiringTodayView
+    private lateinit var view: TVShowsListView
 
     @MockK
     private lateinit var getAiringTodayTVShowsUseCase: GetAiringTodayTVShowsUseCase
@@ -89,7 +90,7 @@ class AiringTodayPresenterTest {
 
         sut.getAiringToday()
 
-        verify { view.renderTvShows(any()) }
+        verify { view.renderTVShows(any()) }
     }
 
     @Test

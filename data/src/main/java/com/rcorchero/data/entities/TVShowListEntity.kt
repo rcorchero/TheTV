@@ -4,7 +4,7 @@ import com.squareup.moshi.Json
 import com.squareup.moshi.JsonClass
 
 @JsonClass(generateAdapter = true)
-data class AiringTodayEntity(
+data class TVShowListEntity(
     @Json(name = "page") val page: Int = 1,
     @Json(name = "total_results") val totalResults: Int = 0,
     @Json(name = "total_pages") val totalPages: Int = 1,

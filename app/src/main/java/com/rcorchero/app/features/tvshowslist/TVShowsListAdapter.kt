@@ -1,4 +1,4 @@
-package com.rcorchero.app.features.airingtoday
+package com.rcorchero.app.features.tvshowslist
 
 import android.view.View
 import android.view.ViewGroup
@@ -12,15 +12,17 @@ import kotlinx.android.synthetic.main.item_tv_show.view.*
 import javax.inject.Inject
 import kotlin.properties.Delegates
 
-class AiringTodayAdapter
-@Inject constructor() : RecyclerView.Adapter<AiringTodayAdapter.ViewHolder>() {
+class TVShowsListAdapter
+@Inject constructor() : RecyclerView.Adapter<TVShowsListAdapter.ViewHolder>() {
 
     internal var collection: List<TVShowView> by Delegates.observable(emptyList()) { _, _, _ ->
         notifyDataSetChanged()
     }
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int) =
-        ViewHolder(parent.inflate(R.layout.item_tv_show))
+        ViewHolder(
+            parent.inflate(R.layout.item_tv_show)
+        )
 
     override fun onBindViewHolder(viewHolder: ViewHolder, position: Int) =
         viewHolder.bind(collection[position])
@@ -28,10 +30,11 @@ class AiringTodayAdapter
     override fun getItemCount() = collection.size
 
     class ViewHolder(itemView: View) : RecyclerView.ViewHolder(itemView) {
-        fun bind(tvShowView: TVShowView) {
-            showTitle(tvShowView.name)
-            showPoster(tvShowView.posterUrl)
-            showVoteAverage(tvShowView.voteAverage)
+
+        fun bind(tvShowView: TVShowView) = with(tvShowView) {
+            showTitle(name)
+            showPoster(posterUrl)
+            showVoteAverage(voteAverage)
         }
 
         private fun showTitle(name: String) {
