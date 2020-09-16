@@ -1,6 +1,5 @@
 package com.rcorchero.domain.exception
 
-sealed class Failure {
-    object DomainError : Failure()
-    object ServerError : Failure()
-}
+sealed class Failure
+object CacheError : Failure()
+object ServerError : Failure()

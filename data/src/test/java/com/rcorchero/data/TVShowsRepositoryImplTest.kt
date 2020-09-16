@@ -3,6 +3,8 @@ package com.rcorchero.data
 import com.rcorchero.data.source.local.TVShowsLocalDataSource
 import com.rcorchero.data.source.local.TVShowsLocalDataSource.TVShowsType
 import com.rcorchero.data.source.remote.TVShowsRemoteDataSource
+import com.rcorchero.domain.exception.DeleteSuccess
+import com.rcorchero.domain.exception.SaveSuccess
 import com.rcorchero.domain.functional.Either
 import io.mockk.MockKAnnotations
 import io.mockk.coEvery
@@ -34,6 +36,15 @@ class TVShowsRepositoryImplTest {
     @Test
     fun `when calling airing today, should call remote data source if online`() {
         coEvery { remoteDataSource.getAiringTodayTVShows() } returns Either.Right(emptyList())
+        coEvery { localDataSource.deleteTVShows(TVShowsType.AIRING_TODAY) } returns Either.Right(
+            DeleteSuccess
+        )
+        coEvery {
+            localDataSource.saveTVShows(
+                TVShowsType.AIRING_TODAY,
+                any()
+            )
+        } returns Either.Right(SaveSuccess)
 
         runBlocking {
             sut.getAiringToday()
@@ -46,6 +57,12 @@ class TVShowsRepositoryImplTest {
     @Test
     fun `when calling popular, should call remote data source if online`() {
         coEvery { remoteDataSource.getPopularTVShows() } returns Either.Right(emptyList())
+        coEvery { localDataSource.deleteTVShows(TVShowsType.POPULAR) } returns Either.Right(
+            DeleteSuccess
+        )
+        coEvery { localDataSource.saveTVShows(TVShowsType.POPULAR, any()) } returns Either.Right(
+            SaveSuccess
+        )
 
         runBlocking {
             sut.getPopular()
@@ -58,6 +75,12 @@ class TVShowsRepositoryImplTest {
     @Test
     fun `when calling top rated, should call remote data source if online`() {
         coEvery { remoteDataSource.getTopRatedTVShows() } returns Either.Right(emptyList())
+        coEvery { localDataSource.deleteTVShows(TVShowsType.TOP_RATED) } returns Either.Right(
+            DeleteSuccess
+        )
+        coEvery { localDataSource.saveTVShows(TVShowsType.TOP_RATED, any()) } returns Either.Right(
+            SaveSuccess
+        )
 
         runBlocking {
             sut.getTopRated()
@@ -70,6 +93,15 @@ class TVShowsRepositoryImplTest {
     @Test
     fun `when calling airing today, should save tv shows in local data source if remote call is successful`() {
         coEvery { remoteDataSource.getAiringTodayTVShows() } returns Either.Right(emptyList())
+        coEvery { localDataSource.deleteTVShows(TVShowsType.AIRING_TODAY) } returns Either.Right(
+            DeleteSuccess
+        )
+        coEvery {
+            localDataSource.saveTVShows(
+                TVShowsType.AIRING_TODAY,
+                any()
+            )
+        } returns Either.Right(SaveSuccess)
 
         runBlocking {
             val response = sut.getAiringToday()
@@ -85,6 +117,12 @@ class TVShowsRepositoryImplTest {
     @Test
     fun `when calling popular, should save tv shows in local data source if remote call is successful`() {
         coEvery { remoteDataSource.getPopularTVShows() } returns Either.Right(emptyList())
+        coEvery { localDataSource.deleteTVShows(TVShowsType.POPULAR) } returns Either.Right(
+            DeleteSuccess
+        )
+        coEvery { localDataSource.saveTVShows(TVShowsType.POPULAR, any()) } returns Either.Right(
+            SaveSuccess
+        )
 
         runBlocking {
             val response = sut.getPopular()
@@ -100,6 +138,12 @@ class TVShowsRepositoryImplTest {
     @Test
     fun `when calling top rated, should save tv shows in local data source if remote call is successful`() {
         coEvery { remoteDataSource.getTopRatedTVShows() } returns Either.Right(emptyList())
+        coEvery { localDataSource.deleteTVShows(TVShowsType.TOP_RATED) } returns Either.Right(
+            DeleteSuccess
+        )
+        coEvery { localDataSource.saveTVShows(TVShowsType.TOP_RATED, any()) } returns Either.Right(
+            SaveSuccess
+        )
 
         runBlocking {
             val response = sut.getTopRated()
@@ -116,7 +160,9 @@ class TVShowsRepositoryImplTest {
     fun `when calling airing today, should call local data source if offline`() {
         sut = TVShowsRepositoryImpl(false, localDataSource, remoteDataSource)
 
-        coEvery { localDataSource.getTVShows(TVShowsType.AIRING_TODAY) } returns emptyList()
+        coEvery { localDataSource.getTVShows(TVShowsType.AIRING_TODAY) } returns Either.Right(
+            emptyList()
+        )
 
         runBlocking {
             sut.getAiringToday()
@@ -130,7 +176,7 @@ class TVShowsRepositoryImplTest {
     fun `when calling popular, should call local data source if offline`() {
         sut = TVShowsRepositoryImpl(false, localDataSource, remoteDataSource)
 
-        coEvery { localDataSource.getTVShows(TVShowsType.POPULAR) } returns emptyList()
+        coEvery { localDataSource.getTVShows(TVShowsType.POPULAR) } returns Either.Right(emptyList())
 
         runBlocking {
             sut.getPopular()
@@ -144,7 +190,7 @@ class TVShowsRepositoryImplTest {
     fun `when calling top rated, should call local data source if offline`() {
         sut = TVShowsRepositoryImpl(false, localDataSource, remoteDataSource)
 
-        coEvery { localDataSource.getTVShows(TVShowsType.TOP_RATED) } returns emptyList()
+        coEvery { localDataSource.getTVShows(TVShowsType.TOP_RATED) } returns Either.Right(emptyList())
 
         runBlocking {
             sut.getTopRated()

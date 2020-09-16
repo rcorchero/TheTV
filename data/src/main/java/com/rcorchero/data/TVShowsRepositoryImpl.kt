@@ -24,11 +24,9 @@ class TVShowsRepositoryImpl(
                 it.toDomainModel()
             }
         } else {
-            Either.Right(
-                localDataSource.getTVShows(TVShowsType.AIRING_TODAY).map {
-                    it.toDomainModel()
-                }
-            )
+            localDataSource.getTVShows(TVShowsType.AIRING_TODAY).map {
+                it.toDomainModel()
+            }
         }
 
     override suspend fun getPopular(): Either<Failure, List<TVShow>> =
@@ -38,11 +36,9 @@ class TVShowsRepositoryImpl(
                 it.toDomainModel()
             }
         } else {
-            Either.Right(
-                localDataSource.getTVShows(TVShowsType.POPULAR).map {
-                    it.toDomainModel()
-                }
-            )
+            localDataSource.getTVShows(TVShowsType.POPULAR).map {
+                it.toDomainModel()
+            }
         }
 
     override suspend fun getTopRated(): Either<Failure, List<TVShow>> =
@@ -52,11 +48,9 @@ class TVShowsRepositoryImpl(
                 it.toDomainModel()
             }
         } else {
-            Either.Right(
-                localDataSource.getTVShows(TVShowsType.TOP_RATED).map {
-                    it.toDomainModel()
-                }
-            )
+            localDataSource.getTVShows(TVShowsType.TOP_RATED).map {
+                it.toDomainModel()
+            }
         }
 
     private fun saveData(type: TVShowsType, movieEntityList: List<TVShowEntity>) {

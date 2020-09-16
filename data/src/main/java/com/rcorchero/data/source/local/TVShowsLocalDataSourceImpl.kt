@@ -9,7 +9,11 @@ import com.rcorchero.data.source.local.TVShowsLocalDataSource.TVShowsType
 import com.rcorchero.data.source.local.TVShowsLocalDataSourceImpl.Companion.SQL_GET_AIRING_TODAY
 import com.rcorchero.data.source.local.TVShowsLocalDataSourceImpl.Companion.SQL_GET_POPULAR
 import com.rcorchero.data.source.local.TVShowsLocalDataSourceImpl.Companion.SQL_GET_TOP_RATED
-import java.util.ArrayList
+import com.rcorchero.domain.exception.CacheError
+import com.rcorchero.domain.exception.DeleteSuccess
+import com.rcorchero.domain.exception.SaveSuccess
+import com.rcorchero.domain.functional.Either
+import java.util.*
 
 class TVShowsLocalDataSourceImpl(
     private val sqLiteOpenHelper: SQLiteOpenHelper
@@ -21,7 +25,7 @@ class TVShowsLocalDataSourceImpl(
         const val SQL_GET_TOP_RATED = "SELECT * FROM $TABLE_NAME_TOP_RATED"
     }
 
-    override fun getTVShows(type: TVShowsType): List<TVShowEntity> {
+    override fun getTVShows(type: TVShowsType): Either<CacheError, List<TVShowEntity>> {
         val db = sqLiteOpenHelper.readableDatabase
 
         val movieEntityList = ArrayList<TVShowEntity>()
@@ -37,10 +41,13 @@ class TVShowsLocalDataSourceImpl(
             cursor.close()
         }
 
-        return movieEntityList
+        return Either.Right(movieEntityList)
     }
 
-    override fun saveTVShows(type: TVShowsType, tvShowsList: List<TVShowEntity>) {
+    override fun saveTVShows(
+        type: TVShowsType,
+        tvShowsList: List<TVShowEntity>
+    ): Either<CacheError, SaveSuccess> {
         val db = sqLiteOpenHelper.writableDatabase
 
         db.beginTransaction()
@@ -49,11 +56,13 @@ class TVShowsLocalDataSourceImpl(
         }
         db.setTransactionSuccessful()
         db.endTransaction()
+        return Either.Right(SaveSuccess)
     }
 
-    override fun deleteTVShows(type: TVShowsType) {
+    override fun deleteTVShows(type: TVShowsType): Either<CacheError, DeleteSuccess> {
         val db = sqLiteOpenHelper.writableDatabase
         db.delete(type.tableName(), null, null)
+        return Either.Right(DeleteSuccess)
     }
 }
 

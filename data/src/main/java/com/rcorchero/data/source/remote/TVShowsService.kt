@@ -12,7 +12,7 @@ interface TVShowsService {
         // API info
         private const val API_VERSION = "3"
         // TODO add your API key from https://developers.themoviedb.org/3/getting-started/introduction
-        private const val API_KEY_VALUE = "YOUR-API-KEY"
+        private const val API_KEY_VALUE = "aa461b54145a8875c4dfe14d36f9d858"
         private const val DEFAULT_LANGUAGE = "es-ES"
 
         // URLs
