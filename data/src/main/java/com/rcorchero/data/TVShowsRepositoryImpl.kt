@@ -53,8 +53,8 @@ class TVShowsRepositoryImpl(
             }
         }
 
-    private fun saveData(type: TVShowsType, movieEntityList: List<TVShowEntity>) {
+    private fun saveData(type: TVShowsType, tvShowsEntityList: List<TVShowEntity>) {
         localDataSource.deleteTVShows(type)
-        localDataSource.saveTVShows(type, movieEntityList)
+        localDataSource.saveTVShows(type, tvShowsEntityList)
     }
 }

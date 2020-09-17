@@ -1,6 +1,6 @@
 package com.rcorchero.presentation.features.tvshowslist.airingtoday
 
-import com.rcorchero.domain.exception.Failure
+import com.rcorchero.domain.exception.ServerError
 import com.rcorchero.domain.functional.Either
 import com.rcorchero.domain.model.TVShow
 import com.rcorchero.domain.usecase.GetAiringTodayTVShowsUseCase
@@ -95,7 +95,7 @@ class AiringTodayPresenterTest {
 
     @Test
     fun `hide loading when airing today call has failed`() {
-        coEvery { getAiringTodayTVShowsUseCase.invoke() }.returns(Either.Left(Failure.DomainError))
+        coEvery { getAiringTodayTVShowsUseCase.invoke() }.returns(Either.Left(ServerError))
 
         sut.getAiringToday()
 
@@ -104,7 +104,7 @@ class AiringTodayPresenterTest {
 
     @Test
     fun `show error when airing today call has failed`() {
-        coEvery { getAiringTodayTVShowsUseCase.invoke() }.returns(Either.Left(Failure.DomainError))
+        coEvery { getAiringTodayTVShowsUseCase.invoke() }.returns(Either.Left(ServerError))
 
         sut.getAiringToday()
 
@@ -113,7 +113,7 @@ class AiringTodayPresenterTest {
 
     @Test
     fun `show empty view when airing today call has failed and tv shows list is empty`() {
-        coEvery { getAiringTodayTVShowsUseCase.invoke() }.returns(Either.Left(Failure.DomainError))
+        coEvery { getAiringTodayTVShowsUseCase.invoke() }.returns(Either.Left(ServerError))
 
         sut.getAiringToday()
 

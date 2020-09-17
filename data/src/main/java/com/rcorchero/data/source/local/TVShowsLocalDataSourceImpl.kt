@@ -28,12 +28,12 @@ class TVShowsLocalDataSourceImpl(
     override fun getTVShows(type: TVShowsType): Either<CacheError, List<TVShowEntity>> {
         val db = sqLiteOpenHelper.readableDatabase
 
-        val movieEntityList = ArrayList<TVShowEntity>()
+        val tvShowsEntityList = ArrayList<TVShowEntity>()
 
         val cursor = db.rawQuery(type.getAllSqlQuery(), null)
         if (cursor.moveToFirst()) {
             do {
-                movieEntityList.add(TVShowEntity(cursor))
+                tvShowsEntityList.add(TVShowEntity(cursor))
             } while (cursor.moveToNext())
         }
 
@@ -41,7 +41,7 @@ class TVShowsLocalDataSourceImpl(
             cursor.close()
         }
 
-        return Either.Right(movieEntityList)
+        return Either.Right(tvShowsEntityList)
     }
 
     override fun saveTVShows(

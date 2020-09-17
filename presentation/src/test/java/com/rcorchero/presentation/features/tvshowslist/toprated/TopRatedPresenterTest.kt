@@ -1,6 +1,6 @@
 package com.rcorchero.presentation.features.tvshowslist.toprated
 
-import com.rcorchero.domain.exception.Failure
+import com.rcorchero.domain.exception.ServerError
 import com.rcorchero.domain.functional.Either
 import com.rcorchero.domain.model.TVShow
 import com.rcorchero.domain.usecase.GetTopRatedTVShowsUseCase
@@ -95,7 +95,7 @@ class TopRatedPresenterTest {
 
     @Test
     fun `hide loading when top rated call has failed`() {
-        coEvery { getTopRatedTVShowsUseCase.invoke() }.returns(Either.Left(Failure.DomainError))
+        coEvery { getTopRatedTVShowsUseCase.invoke() }.returns(Either.Left(ServerError))
 
         sut.getTopRated()
 
@@ -104,7 +104,7 @@ class TopRatedPresenterTest {
 
     @Test
     fun `show error when top rated call has failed`() {
-        coEvery { getTopRatedTVShowsUseCase.invoke() }.returns(Either.Left(Failure.DomainError))
+        coEvery { getTopRatedTVShowsUseCase.invoke() }.returns(Either.Left(ServerError))
 
         sut.getTopRated()
 
@@ -113,7 +113,7 @@ class TopRatedPresenterTest {
 
     @Test
     fun `show empty view when top rated call has failed and tv shows list is empty`() {
-        coEvery { getTopRatedTVShowsUseCase.invoke() }.returns(Either.Left(Failure.DomainError))
+        coEvery { getTopRatedTVShowsUseCase.invoke() }.returns(Either.Left(ServerError))
 
         sut.getTopRated()
 

@@ -1,6 +1,6 @@
 package com.rcorchero.presentation.features.tvshowslist.popular
 
-import com.rcorchero.domain.exception.Failure
+import com.rcorchero.domain.exception.ServerError
 import com.rcorchero.domain.functional.Either
 import com.rcorchero.domain.model.TVShow
 import com.rcorchero.domain.usecase.GetPopularTVShowsUseCase
@@ -95,7 +95,7 @@ class PopularPresenterTest {
 
     @Test
     fun `hide loading when popular call has failed`() {
-        coEvery { getPopularTVShowsUseCase.invoke() }.returns(Either.Left(Failure.DomainError))
+        coEvery { getPopularTVShowsUseCase.invoke() }.returns(Either.Left(ServerError))
 
         sut.getPopular()
 
@@ -104,7 +104,7 @@ class PopularPresenterTest {
 
     @Test
     fun `show error when popular call has failed`() {
-        coEvery { getPopularTVShowsUseCase.invoke() }.returns(Either.Left(Failure.DomainError))
+        coEvery { getPopularTVShowsUseCase.invoke() }.returns(Either.Left(ServerError))
 
         sut.getPopular()
 
@@ -113,7 +113,7 @@ class PopularPresenterTest {
 
     @Test
     fun `show empty view when popular call has failed and tv shows list is empty`() {
-        coEvery { getPopularTVShowsUseCase.invoke() }.returns(Either.Left(Failure.DomainError))
+        coEvery { getPopularTVShowsUseCase.invoke() }.returns(Either.Left(ServerError))
 
         sut.getPopular()
 
